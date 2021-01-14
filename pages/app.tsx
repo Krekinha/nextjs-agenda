@@ -3,11 +3,12 @@ import { signIn, signOut, useSession } from 'next-auth/client'
 
 import Nav from '../components/nav';
 
-const IndexPage: NextPage = ()=> {
+const AppPage: NextPage = ()=> {
 const [ session, loading ] = useSession();
   return (
   <div>
     <Nav />
+    <div>Bem vindo a pagina APP</div>
       <div>
         {!session && (
         <div className="text-3xl">
@@ -31,4 +32,4 @@ const [ session, loading ] = useSession();
   );
 };
 
-export default IndexPage;
+export default AppPage;

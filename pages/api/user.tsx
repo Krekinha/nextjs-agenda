@@ -2,7 +2,7 @@ import connect from '../../utils/database';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 interface ErrorResponseType {
-    error: string
+    error: string;
 }
 
 interface SuccessResponseType {
@@ -17,7 +17,7 @@ export default async (
     res: NextApiResponse<ErrorResponseType | SuccessResponseType>
     ): Promise<void> => {
 
-    if (req.method === 'POST') {
+    if (req.method === "POST") {
         
         const { name, email, cellphone, teacher} = req.body;
         
