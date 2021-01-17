@@ -1,0 +1,35 @@
+import connect from "../../utils/database";
+import { NextApiRequest, NextApiResponse } from "next";
+
+interface ErrorResponseType {
+  error: string;
+}
+
+export default async (
+  req: NextApiRequest,
+  res: NextApiResponse<ErrorResponseType | object[]>
+): Promise<void> => {
+  if (req.method === "GET") {
+    const { courses }: { courses: string } = req.body;
+
+    if (!courses) {
+      res.status(400).json({ error: "Missing course" });
+      return;
+    }
+
+    const { db } = await connect();
+
+    const response = await db
+      .find({ courses: { $in: [new RegExp(`^${courses}`, "i")] } })
+      .toArray();
+
+    if (response.length === 0) {
+      res.status(400).json({ error: "curso não encontrado" });
+      return;
+    }
+
+    res.status(200).json(response);
+  } else {
+    res.status(400).json({ error: "Deu ruim" });
+  }
+};
